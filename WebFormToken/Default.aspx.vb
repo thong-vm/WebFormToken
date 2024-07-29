@@ -4,7 +4,7 @@ Partial Class _Default
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         Dim tokenCreated = JwtHelper.GenerateToken("username_example")
-        Dim tokenFaked = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdW"
+        Dim tokenFaked = "eyJhbGciOiJIUzI1NiIsInR.5cCI6IkpXVCJ9.eyJzdW"
         Response.Write("Generated Token: " & tokenCreated)
 
         ' Authencation token

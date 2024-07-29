@@ -1,5 +1,5 @@
-Imports System.Web.Script.Serialization
 Imports System.Security.Cryptography
+Imports System.Web.Script.Serialization
 
 Public Class JwtHelper
 
@@ -39,6 +39,24 @@ Public Class JwtHelper
         Dim payloadBase64Url = parts(1)
         Dim signature = parts(2)
 
+        ' Decode and validate header
+        Try
+            Dim headerJson = Encoding.UTF8.GetString(Base64UrlDecode(headerBase64Url))
+            Dim headerData = New JavaScriptSerializer().Deserialize(Of Dictionary(Of String, String))(headerJson)
+
+            ' Check for expected algorithm
+            If Not headerData.ContainsKey("alg") OrElse headerData("alg") <> "HS256" Then
+                Return False
+            End If
+
+            ' Check for expected type
+            If Not headerData.ContainsKey("typ") OrElse headerData("typ") <> "JWT" Then
+                Return False
+            End If
+        Catch
+            Return False
+        End Try
+
         Dim expectedSignature = CreateSignature(headerBase64Url, payloadBase64Url)
         Return signature = expectedSignature
     End Function
@@ -59,5 +77,16 @@ Public Class JwtHelper
         base64 = base64.Replace("+"c, "-"c)
         base64 = base64.Replace("/"c, "_"c)
         Return base64
+    End Function
+
+    Private Shared Function Base64UrlDecode(input As String) As Byte()
+        Dim base64 = input.Replace("-"c, "+"c).Replace("_"c, "/"c)
+        Select Case base64.Length Mod 4
+            Case 2
+                base64 += "=="
+            Case 3
+                base64 += "="
+        End Select
+        Return Convert.FromBase64String(base64)
     End Function
 End Class
