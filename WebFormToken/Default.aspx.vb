@@ -3,23 +3,21 @@ Partial Class _Default
     Inherits Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
-        Dim tokenCreated = JwtHelper.GenerateToken("username_example")
-        Dim tokenFaked = "eyJhbGciOiJIUzI1NiIsInR.5cCI6IkpXVCJ9.eyJzdW"
-        Response.Write("Generated Token: " & tokenCreated)
+    End Sub
 
-        ' Authencation token
-        Dim isValid = JwtHelper.ValidateToken(tokenCreated)
+    Protected Sub btnCreate_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCreate.Click
+        Dim tokenCreated = JwtHelper.GenerateToken(txtCreate.Text)
+        txtToken.Text = tokenCreated
+    End Sub
+
+    Protected Sub btnCheck_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCheck.Click
+        Dim isValid = JwtHelper.ValidateToken(txtCheck.Text)
         If isValid Then
-            Response.Write("Token is valid.")
+            txtValid.Visible = True
+            txtInvalid.Visible = False
         Else
-            Response.Write("Token is invalid.")
-        End If
-
-        Dim isNotValid = JwtHelper.ValidateToken(tokenFaked)
-        If isNotValid Then
-            Response.Write("Token is valid.")
-        Else
-            Response.Write("Token is invalid.")
+            txtValid.Visible = False
+            txtInvalid.Visible = True
         End If
     End Sub
 End Class

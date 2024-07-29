@@ -14,8 +14,7 @@ Public Class JwtHelper
 
         ' Payload
         Dim payload As New Dictionary(Of String, String) From {
-            {"sub", username},
-            {"exp", (DateTime.UtcNow.AddHours(1).Subtract(New DateTime(1970, 1, 1))).TotalSeconds.ToString()}
+            {"sub", username} ',{"exp", (DateTime.UtcNow.AddHours(1).Subtract(New DateTime(1970, 1, 1))).TotalSeconds.ToString()}   'If you want to add expire
         }
 
         ' Convert to JSON and Base64Url encode

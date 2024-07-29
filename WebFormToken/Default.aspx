@@ -1,7 +1,22 @@
 ﻿<%@ Page Title="Home Page" Language="VB" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="Default.aspx.vb" Inherits="_Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
+    <asp:Label runat="server" Text="CREATE TOKEN: " Font-Bold="true" Font-Size="X-Large"></asp:Label>
+        <br />
+    <asp:Label runat="server" Text="Content that need to encode: "></asp:Label>
+        <br />
+    <asp:TextBox runat="server" ID="txtCreate" Width="100%"></asp:TextBox>
+    <asp:Button runat="server" ID ="btnCreate" Text="Create"/>
+    <br />
+    <asp:Label runat="server" Text="Token created: "></asp:Label> <asp:Label runat="server" Text="" ID="txtToken" Font-Bold="true"></asp:Label>
+    <br />
+    <hr />
+     <asp:Label runat="server" Text="Check token: "></asp:Label>
+        <br />
+    <asp:TextBox runat="server" ID="txtCheck" Width="100%"></asp:TextBox>
+    <asp:Button runat="server" Text="Check" ID="btnCheck"/>
+    <br />
+    <asp:Label runat="server" Text="Result: "></asp:Label> <asp:Label runat="server" Text="Valid" ForeColor="Green" ID="txtValid" Visible="false"></asp:Label>  <asp:Label runat="server" Text="Invalid" ID="txtInvalid" ForeColor="Red" Visible="false"></asp:Label>
     <div class="jumbotron">
         <h1>ASP.NET</h1>
         <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
